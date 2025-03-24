@@ -8,6 +8,7 @@ For DPR:
 
 For Q2D+bm25: 
     python bm25.py --llm llama3-70b --Q2D yes --save_path logs/result_q2d_bm25.json
+    
 For Q2D+DPR:  
     python DPR.py --llm llama3-70b --Q2D yes --save_path logs/result_q2d_dpr.json
 
