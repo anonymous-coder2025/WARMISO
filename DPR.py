@@ -59,18 +59,14 @@ if __name__=='__main__':
     base_prompts = yaml.safe_load(open("prompts.yaml"))
     task_apis_writer = base_prompts["Query2API"]
 
-    con = pymysql.connect(host='localhost', port=3306, user='root', 
-                            password='@123',db='workflow',charset='utf8')
-    cur = con.cursor()
-
-    # corpus_id, corpus_name, corpus_list, corpus_embeddings = get_corpus_embedding(cur, model)
+    # corpus_id, corpus_name, corpus_list, corpus_embeddings = get_corpus_embedding(model)
     # get all the nodes APIs databases;
-    nodeAPIs_dict_id, nodeAPIs_dict_name = get_nodeAPIs_database(con, cur)
+    nodeAPIs_dict_id, nodeAPIs_dict_name = get_nodeAPIs_database()
 
-    nodes_id_list = get_nodes_list(cur)
+    nodes_id_list = get_nodes_list()
     # print(nodes_id_list)
-    nodes_label_dict, nodes_name_dict = get_nodes_labels(cur, nodes_id_list)
-    All_corpus = get_corpus_embedding(cur, model, "All", nodes_id_list)
+    nodes_label_dict, nodes_name_dict = get_nodes_labels(nodes_id_list)
+    All_corpus = get_corpus_embedding(model, "All", nodes_id_list)
     corpus_embeddings, corpus_id, corpus_name, corpus_list = All_corpus['corpus_embeddings'], All_corpus['corpus_id'], All_corpus['corpus_name'], All_corpus['corpus_list']
 
     results_list = []
