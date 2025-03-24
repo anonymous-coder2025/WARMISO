@@ -1,0 +1,20 @@
+[
+    {
+        "id": 7,
+        "workflow_des": "Create dummy or artificial data and add random label, then save it in data folder.",
+        "nodes_ids": "1438;1134;276",
+        "nodes_names": "Table Creator;Random Label Assigner;CSV Writer",
+        "nodes_apis": "Table_Creator(): \n\tdescription: This function allows the manual creation of a data table.\n\tparameters: []\n\treturns: [Manually_created_table]\n\nRandom_Label_Assigner(Data_table): \n\tdescription: This function assigns the labels based on the probabilities to the rows.\n\tparameters: [Data_table]\n\treturns: [One_additional_string_column]\n\nCSV_Writer(Input_table): \n\tdescription: This function writes out the input data table into a file or to a remote location denoted by an URL.\n\tparameters: [Input_table]\n\treturns: []",
+        "workflow_programer": "Manually_created_table = Table_Creator()\nOne_additional_string_column = Random_Label_Assigner(Manually_created_table)\nCSV_Writer(One_additional_string_column)\n",
+        "workflow_class": "Data Manipulation"
+    },
+    {
+        "id": 16,
+        "workflow_des": "Create Sales Table across Product and Markets, create a new column to denote Sales in Thousands, Split the Month Column into Month Number and Month Name, rename the  newly created columns, and view the results.",
+        "nodes_ids": "124;1438;851;161;1461",
+        "nodes_names": "Cell Splitter;Table Creator;Math Formula;Column Rename;Table View",
+        "nodes_apis": "Cell_Splitter(Input_Table): \n\tdescription: This function uses a user-specified delimiter character to split the content of a selected column into parts.\n\tparameters: [Input_Table]\n\treturns: [Output_Table]\n\nMath_Formula(Input_data): \n\tdescription: This function evaluates a mathematical expression based on the values in a row.\n\tparameters: [Input_data]\n\treturns: [Output_data]\n\nTable_Creator(): \n\tdescription: This function allows the manual creation of a data table.\n\tparameters: []\n\treturns: [Manually_created_table]\n\nTable_View(Input_Table): \n\tdescription: This is a table view function.\n\tparameters: [Input_Table]\n\treturns: []\n\nColumn_Rename(Any_input_table): \n\tdescription: This function renames column names or change their types.\n\tparameters: [Any_input_table]\n\treturns: [Renamed/Retyped_table]",
+        "workflow_programer": "Manually_created_table = Table_Creator()\nOutput_data = Math_Formula(Manually_created_table)\nOutput_Table = Cell_Splitter(Output_data)\nRenamed_Retyped_table = Column_Rename(Output_Table)\nTable_View(Renamed_Retyped_table)\n",
+        "workflow_class": "Data Manipulation;Data Visualization"
+    }
+]
