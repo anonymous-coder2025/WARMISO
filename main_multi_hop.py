@@ -33,20 +33,16 @@ if __name__=='__main__':
                                 trust_remote_code=True,
                                 ) 
 
-    con = pymysql.connect(host='localhost', port=3306, user='root', 
-                        password='@123', db='workflow', charset='utf8')
-    cur = con.cursor()
-
     # get all the nodes APIs databases;
-    nodeAPIs_dict_id, nodeAPIs_dict_name = get_nodeAPIs_database(con, cur)
+    nodeAPIs_dict_id, nodeAPIs_dict_name = get_nodeAPIs_database()
 
     llm_type = args.llm
     print("Using LLMs....", llm_type)
 
-    nodes_id_list = get_nodes_list(cur)
+    nodes_id_list = get_nodes_list()
     # print(nodes_id_list)
 
-    nodes_label_dict, nodes_name_dict = get_nodes_labels(cur, nodes_id_list)
+    nodes_label_dict, nodes_name_dict = get_nodes_labels(nodes_id_list)
 
     base_prompts = yaml.safe_load(open("prompts.yaml"))
     task_step_writer = base_prompts["task_step_writer"]
@@ -54,7 +50,7 @@ if __name__=='__main__':
     APIs_rerank = base_prompts["APIs_Rerank"]
     APIs_Filter = base_prompts["APIs_Filter"]
 
-    All_corpus = get_corpus_embedding(cur, model, "All", nodes_id_list)
+    All_corpus = get_corpus_embedding(model, "All", nodes_id_list)
 
     src_list = []
     pred_list = []
@@ -78,9 +74,6 @@ if __name__=='__main__':
             pred_list_filter.append(tmp_data["predict_nodes_ids_filter"])
         file_read.close()
 
-    ## 138
-    # cur.execute('''select id, workflow_des_new, nodes_ids, nodes_names, workflow_programer, workflow_class from workflows_knwf_new_test where repeat_apis is null and single_apis is null''')
-    
     json_file = open(args.save_path, 'a')
 
     with open("data/workflow_sample.json", "r", encoding='utf-8') as user_file:
