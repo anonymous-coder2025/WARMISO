@@ -1,0 +1,1158 @@
+[
+    {
+        "node_id": 1438,
+        "node_name": "Table Creator",
+        "node_label": "Node / Source",
+        "node_des": " Allows the manual creation of a data table. The data can entered in a spreadsheet like table. \n",
+        "input_ports": [],
+        "output_ports": [
+            {
+                "port_type": "Table",
+                "port_name": "Manually created table",
+                "port_des": "Manually created table"
+            }
+        ]
+    },
+    {
+        "node_id": 1134,
+        "node_name": "Random Label Assigner",
+        "node_label": "Node / Manipulator",
+        "node_des": "Assigns the labels based on the probabilities to the rows. Here we use the class names and the probabilities given in the dialog to assign the new class column. Categories with empty names or a probability less or equal to 0 are ignored.\n",
+        "input_ports": [
+            {
+                "port_type": "Table",
+                "port_name": "Data table",
+                "port_des": "Simply data, (as the node does not use any information in this data, there are no constraints)"
+            }
+        ],
+        "output_ports": [
+            {
+                "port_type": "Table",
+                "port_name": "One additional string column",
+                "port_des": "The original data with one new string column."
+            }
+        ]
+    },
+    {
+        "node_id": 276,
+        "node_name": "CSV Writer",
+        "node_label": "Node / Sink",
+        "node_des": " This node writes out the input data table into a file or to a remote location denoted by an URL. The input data table must contain only string or numerical columns. Other column types are not supported. \n This node can access a variety of different  file systems.  More information about file handling in KNIME can be found in the official  File Handling Guide.  \n",
+        "input_ports": [
+            {
+                "port_type": "Table",
+                "port_name": "Input table",
+                "port_des": "The data table to write out."
+            }
+        ],
+        "output_ports": []
+    },
+    {
+        "node_id": 124,
+        "node_name": "Cell Splitter",
+        "node_label": "Node / Manipulator",
+        "node_des": " This node uses a user-specified delimiter character to split the content of a selected column into parts. It appends either a fixed number of columns to the input table, each carrying one part of the original column, or a single column containing a collection (list or set) of cells with the split output. It can be specified whether the output consists of one or more columns, only one column containing list cells, or only one column containing set cells in which duplicates are removed.  If the column contains more delimiters than needed (leading to more parts than appended columns are available) the additional delimiters are ignored (resulting in the last column containing the unsplit rest of the column).  If the selected column contains too few delimiters (leading to less parts than expected), empty columns will be created in that row.  Based on the delimiters and the resulting parts the collection cells can have different sizes. The content of the new columns will be trimmed if specified (i.e. leading and trailing spaces will be deleted). \n",
+        "input_ports": [
+            {
+                "port_type": "Table",
+                "port_name": "Input Table",
+                "port_des": "Input data table with column containing the cells to split"
+            }
+        ],
+        "output_ports": [
+            {
+                "port_type": "Table",
+                "port_name": "Output Table",
+                "port_des": "Output data table with additional columns."
+            }
+        ]
+    },
+    {
+        "node_id": 851,
+        "node_name": "Math Formula",
+        "node_label": "Node / Manipulator",
+        "node_des": " This node evaluates a mathematical expression based on the values in a row. The computed results can be either appended as new column or be used to replace an input column. Available variables are the values in the corresponding row of the table (left list in the dialog). Commonly used functions are shown in the list \"Mathematical Functions\". There are also some constants available, such as pi (the ratio of the circumference of a circle to its diameter), e (the base of the natural logarithms), the total number of rows in the table, and some other column based constants ( constant category of functions). \n This node uses JEP , the  Java Math Expression Parser . \n Column based constants such as COL_MIN(col_name) will be calculated in advance (if necessary). \n You can reference the integer flow variables like this: $${IflowVar}$$ , the floating point flow variables like this: $${DflowVar}$$ . \n Reference the columns with the form: $colName$ \nWhen any of the used columns contains a missing value, the result is missing, just like when the result would be NaN, infinite value, or outside of the 32 bit signed integer range when that is requested.\nNaN values act as value true in boolean expressions and compared to anything (including NaN) in any way (including ==, but not !=, which is like !(... == ...)) is false (0).\n Please note the expressions are case sensitive. \n",
+        "input_ports": [
+            {
+                "port_type": "Table",
+                "port_name": "Input data",
+                "port_des": "Any input data"
+            }
+        ],
+        "output_ports": [
+            {
+                "port_type": "Table",
+                "port_name": "Output data",
+                "port_des": "Input data amended with math column."
+            }
+        ]
+    },
+    {
+        "node_id": 161,
+        "node_name": "Column Rename",
+        "node_label": "Node / Manipulator",
+        "node_des": " Rename column names or change their types. The dialog allows you to change the name of individual columns by editing the text field or to change the column type by picking one of the possible types in the combo box. Compatible types are those to which the cells in a column can be either safely cast or transformed to. A configuration with a red border indicates that the configured column does not longer exist. \n",
+        "input_ports": [
+            {
+                "port_type": "Table",
+                "port_name": "Any input table",
+                "port_des": "Table whose columns shall be renamed/retyped."
+            }
+        ],
+        "output_ports": [
+            {
+                "port_type": "Table",
+                "port_name": "Renamed/Retyped table",
+                "port_des": "Table from input but with customized column specifications."
+            }
+        ]
+    },
+    {
+        "node_id": 1461,
+        "node_name": "Table View",
+        "node_label": "Node / Visualizer",
+        "node_des": " A table view node. The view can be accessed either via the \u201cinteractive view\u201d action on the executed node or on KNIME WebPortal.  In the node configuration, you can choose the amount of rows you want to display and enable certain controls, which are then available in the view. This includes the ability to choose different columns which are then displayed in the table. The configuration also offers a preview of the table, which should help to get the table view fast in the desired shape.   Note, this node is currently under development. Future versions of the node might have improved or changed functionality. \n",
+        "input_ports": [
+            {
+                "port_type": "Table",
+                "port_name": "Input Table",
+                "port_des": "Data table with data to display."
+            }
+        ],
+        "output_ports": []
+    },
+    {
+        "node_id": 465,
+        "node_name": "Excel Reader",
+        "node_label": "Node / Source",
+        "node_des": " This node reads Excel files (xlsx, xlsm, xlsb, and xls format). It can read a single or multiple files at the same time, however reading only one sheet per file. The supported Excel types that can be read in are string, number, boolean, date, and time but not pictures, diagrams, etc.  The data is read in and converted to the KNIME types string, integer, long, double, boolean, local date, local time, and local date&time. Upon execution, the node will scan the input file to determine number and types of the columns and output a table with the auto-guessed structure and KNIME types.  Formulas can also be read in and reevaluated if desired.The performance of this node is limited (due to the underlying library of the Apache POI project). Reading large files takes a long time and uses a lot of memory (especially files in xlsx format when formula reevaluation is enabled).   The dialog of this node shows a preview and the file content . While the preview shows the table that will be read in having the settings applied and is updated once a setting is changed, the file content shows the content of the file as it is displayed in Excel. This allows finding row numbers and column names easier to specify different settings. \n This node can access a variety of different  file systems.  More information about file handling in KNIME can be found in the official  File Handling Guide.  \n",
+        "input_ports": [],
+        "output_ports": [
+            {
+                "port_type": "Table",
+                "port_name": "File Table",
+                "port_des": "File being read with number and types of columns guessed automatically."
+            }
+        ]
+    },
+    {
+        "node_id": 1446,
+        "node_name": "Table Reader",
+        "node_label": "Node / Source",
+        "node_des": " This node reads files that have been written using the Table Writer node (which uses an internal format). It retains all meta information such as domain, properties, colors, size. \n This node can access a variety of different  file systems.  More information about file handling in KNIME can be found in the official  File Handling Guide.  \n",
+        "input_ports": [],
+        "output_ports": [
+            {
+                "port_type": "Table",
+                "port_name": "Read table",
+                "port_des": "The table contained in the selected file."
+            }
+        ]
+    },
+    {
+        "node_id": 728,
+        "node_name": "Joiner",
+        "node_label": "Node / Manipulator",
+        "node_des": " This node combines two tables similar to a join in a database. It combines each row from the top input port with each row from the bottom input port that has identical values in selected columns. Rows that remain unmatched can also be output. \n",
+        "input_ports": [
+            {
+                "port_type": "Table",
+                "port_name": "Left table",
+                "port_des": "Left input table"
+            },
+            {
+                "port_type": "Table",
+                "port_name": "Right table",
+                "port_des": "Right input table"
+            }
+        ],
+        "output_ports": [
+            {
+                "port_type": "Table",
+                "port_name": "Join result",
+                "port_des": "Either all results or the result of the inner join (if the unmatched rows are output in separate ports)"
+            },
+            {
+                "port_type": "Table",
+                "port_name": "Left unmatched rows",
+                "port_des": "Unmatched rows from the left input table (top input port). Inactive if \"Output unmatched rows to separate ports\" is deactivated."
+            },
+            {
+                "port_type": "Table",
+                "port_name": "Right unmatched rows",
+                "port_des": "Unmatched rows from the right input table (bottom input port). Inactive if \"Output unmatched rows to separate ports\" is deactivated."
+            }
+        ]
+    },
+    {
+        "node_id": 467,
+        "node_name": "Excel Writer",
+        "node_label": "Node / Sink",
+        "node_des": " This node writes the input data table into a spreadsheet of an Excel file, which can then be read with other applications such as Microsoft Excel. The node can create completely new files or append data to an existing Excel file. When appending, the input data can be appended as a new spreadsheet or after the last row of an existing spreadsheet. By adding multiple data table input ports, the data can be written/appended to multiple spreadsheets within the same file. \n The node supports two formats chosen by file extension: \n .xls format: This is the file format which was used by default up until Excel 2003. The maximum number of columns and rows held by a spreadsheet of this format is 256 and 65536 respectively. \n .xlsx format: The Office Open XML format is the file format used by default from Excel 2007 onwards. The maximum number of columns and rows held by a spreadsheet of this format is 16384 and 1048576 respectively. \n\n If the data does not fit into a single sheet, it will be split into multiple chunks that are written to newly chosen sheet names sequentially. The new sheet names are derived from the originally selected sheet name by appending \" (i)\" to it, where i=1,...,n.  When appending to a file, a sheet may already exist. In this case the node will (according to its settings) either replace the sheet, fail or append rows after the last row in that sheet. This can be used to append data to an Excel file without having to create a new sheet name once the original sheet is full by just selecting the original sheet name. The data will be appendend to the last sheet in the name sequence. The original sheet name does not have to be changed. \nThis node does not support writing files in the '.xlsm' format, yet appending is supported.\n This node can access a variety of different  file systems.  More information about file handling in KNIME can be found in the official  File Handling Guide.  \n",
+        "input_ports": [
+            {
+                "port_type": "Table",
+                "port_name": "Input table",
+                "port_des": "The data table to write."
+            }
+        ],
+        "output_ports": []
+    },
+    {
+        "node_id": 274,
+        "node_name": "CSV Reader",
+        "node_label": "Node / Source",
+        "node_des": " Reads CSV files. To auto-guess the structure of the file click the Autodetect format button. If you encounter problems with incorrect guessed data types disable the Limit data rows scanned option in the Advanced Settings tab. If the input file structure changes between different invocations, enable the Support changing file schemas option in the Advanced Settings tab. For further details see the KNIME File Handling Guide  File Handling Guide  . \n Note: If you find that this node can't read your file, try the File Reader node. It offers more options for reading complex files. \n This node can access a variety of different  file systems.  More information about file handling in KNIME can be found in the official  File Handling Guide.  \n",
+        "input_ports": [],
+        "output_ports": [
+            {
+                "port_type": "Table",
+                "port_name": "File Table",
+                "port_des": "File being read with number and types of columns guessed automatically."
+            }
+        ]
+    },
+    {
+        "node_id": 147,
+        "node_name": "Color Manager",
+        "node_label": "Node / Visualizer",
+        "node_des": " Colors can be assigned for either nominal (possible values have to be available) or numeric columns (with lower and upper bounds). If these bounds are not available, a '?' is provided as a minimum and maximum value. The values are then computed during execute. If a column attribute is selected, the color can be changed with the color chooser. \n",
+        "input_ports": [
+            {
+                "port_type": "Table",
+                "port_name": "Table",
+                "port_des": "Table to which color should be applied"
+            }
+        ],
+        "output_ports": [
+            {
+                "port_type": "Table",
+                "port_name": "Table with Colors",
+                "port_des": "Same table with color information appended to one attribute"
+            },
+            {
+                "port_type": "Color",
+                "port_name": "Color Settings",
+                "port_des": "Color settings applied to the input table"
+            }
+        ]
+    },
+    {
+        "node_id": 1248,
+        "node_name": "Scatter Plot",
+        "node_label": "Node / Visualizer",
+        "node_des": " A scatter plot visualization node. The view can be accessed either via the \u201cinteractive view\u201d action on the executed node or on KNIME WebPortal.  In the node configuration, you can choose the size of a sample you want to display and enable certain controls, which are then available in the view. This includes the ability to choose different columns for x and y or the possibility to set a title. The configuration also offers a preview of the view, which should help to get the scatter plot fast in the desired shape. Since missing values as well as NaN (not a number) or infinite values cannot be displayed in the view, they will be omitted.   Note, this node is currently under development. Future versions of the node might have improved or changed functionality. Interactivity between multiple views is currently only possible with views also coming from this labs extension. \n",
+        "input_ports": [
+            {
+                "port_type": "Table",
+                "port_name": "Input Table",
+                "port_des": "Data table with data to display."
+            }
+        ],
+        "output_ports": []
+    },
+    {
+        "node_id": 90,
+        "node_name": "Box Plot",
+        "node_label": "Node / Visualizer",
+        "node_des": " A box plot visualization node. The view can be accessed either via the \u201cinteractive view\u201d action on the executed node or on KNIME WebPortal.  In the node configuration, you can enable certain controls, which are then available in the view. This includes the ability to choose different dimension columns and a condition column or the possibility to set a title. The configuration also offers a preview of the view, which should help to get the box plot fast in the desired shape.   A box plot is constructed in the following way: The box itself goes from the lower quartile (Q1) to the upper quartile (Q3). The median is drawn as a horizontal bar inside the box. The distance between Q1 and Q3 is called the interquartile range (IQR).  Above and below the box are the so-called whiskers. They are drawn at the minimum and the maximum value as horizontal bars and are connected with the box with a line. The whiskers never exceed 1.5 * IQR. This means if there are some data points which exceed either Q1 - (1.5 * IQR) or Q3 + (1.5 * IQR) than the whiskers are drawn at exactly these ranges and the data points are drawn separately as outliers.   Since missing values as well as NaN (not a number) cannot be displayed in the view, they will be omitted.   Note, this node is currently under development. Future versions of the node might have improved or changed functionality. Interactivity between multiple views is currently only possible with views also coming from this labs extension. \n",
+        "input_ports": [
+            {
+                "port_type": "Table",
+                "port_name": "Input Table",
+                "port_des": "Data table containing the dimensions and conditions to be plotted in a box plot."
+            }
+        ],
+        "output_ports": []
+    },
+    {
+        "node_id": 1648,
+        "node_name": "k Means",
+        "node_label": "Node / Learner",
+        "node_des": " This node outputs the cluster centers for a predefined number of clusters (no dynamic number of clusters). K-means performs a crisp clustering that assigns a data vector to exactly one cluster. The algorithm terminates when the cluster assignments do not change anymore.  The clustering algorithm uses the Euclidean distance on the selected attributes. The data is not normalized by the node (if required, you should consider to use the \"Normalizer\" as a preprocessing step). \n",
+        "input_ports": [
+            {
+                "port_type": "Table",
+                "port_name": "Clustering input",
+                "port_des": "Input to clustering. All numerical values and only these are considered for clustering."
+            }
+        ],
+        "output_ports": [
+            {
+                "port_type": "Table",
+                "port_name": "Labeled input",
+                "port_des": "The input data labeled with the cluster they are contained in."
+            },
+            {
+                "port_type": "Table",
+                "port_name": "Clusters",
+                "port_des": "The created clusters"
+            },
+            {
+                "port_type": "PMML",
+                "port_name": "PMML Cluster Model",
+                "port_des": "PMML cluster model"
+            }
+        ]
+    },
+    {
+        "node_id": 1285,
+        "node_name": "Shape Manager",
+        "node_label": "Node / Visualizer",
+        "node_des": " Assigns (different) shapes for each attribute value of one nominal column, i.e. for each possible value. Supporting views then render datapoints with the shape associated with the corresponding attribute value. If there is for example a dataset with two different classes (\"class1\" and \"class2\"), \"class1\" may have a circle and \"class2\" a triangle assigned. When looking at the dataset the values can easily be distinguished through their shape. \n In the dialog the nominal column with the possible values may be selected. The possible values appear in the left column and the shape can be set in the right column of the table by clicking on it and selecting the desired shape. \n",
+        "input_ports": [
+            {
+                "port_type": "Table",
+                "port_name": "Table",
+                "port_des": "Table to which shape settings should be applied to"
+            }
+        ],
+        "output_ports": [
+            {
+                "port_type": "Table",
+                "port_name": "Table with shapes",
+                "port_des": "Same table with shape information applied to one column"
+            },
+            {
+                "port_type": "Shape",
+                "port_name": "Shape Model",
+                "port_des": "Shapes applied to the input table"
+            }
+        ]
+    },
+    {
+        "node_id": 1020,
+        "node_name": "Partitioning",
+        "node_label": "Node / Manipulator",
+        "node_des": " The input table is split into two partitions, such as train and test data. The two partitions are available at the two output ports. The following options are available in the dialog: \n",
+        "input_ports": [
+            {
+                "port_type": "Table",
+                "port_name": "Table to partition",
+                "port_des": "Table to partition."
+            }
+        ],
+        "output_ports": [
+            {
+                "port_type": "Table",
+                "port_name": "First partition (as defined in dialog)",
+                "port_des": "First partition (as defined in dialog)."
+            },
+            {
+                "port_type": "Table",
+                "port_name": "Second partition (remaining rows)",
+                "port_des": "Second partition (remaining rows)."
+            }
+        ]
+    },
+    {
+        "node_id": 141,
+        "node_name": "Cluster Assigner",
+        "node_label": "Node / Predictor",
+        "node_des": " This node assigns new data to an existing set of prototypes, which are obtained e.g. by a k-means clustering. Each data point is assigned to its nearest prototype. \n",
+        "input_ports": [
+            {
+                "port_type": "PMML",
+                "port_name": "Prototypes",
+                "port_des": "Prototype model"
+            },
+            {
+                "port_type": "Table",
+                "port_name": "Input Data",
+                "port_des": "DataTable containing the input data that will be assigned to the prototypes"
+            }
+        ],
+        "output_ports": [
+            {
+                "port_type": "Table",
+                "port_name": "Assigned Data",
+                "port_des": "Input data assigned to cluster prototypes"
+            }
+        ]
+    },
+    {
+        "node_id": 286,
+        "node_name": "Data Explorer",
+        "node_label": "Node / Visualizer",
+        "node_des": " The Data Explorer node offers a range of options for displaying properties of the input data in an interactive view. \n The node supports custom CSS styling. You can simply put CSS rules into a single string and set it as a flow variable 'customCSS' in the node configuration dialog. You will find the list of available classes and their description on our documentation page . \n",
+        "input_ports": [
+            {
+                "port_type": "Table",
+                "port_name": "Table",
+                "port_des": "Table from which to compute statistics."
+            }
+        ],
+        "output_ports": [
+            {
+                "port_type": "Table",
+                "port_name": "Filtered Table",
+                "port_des": "A table with filtered out by user columns, chosen in the interactive view."
+            }
+        ]
+    },
+    {
+        "node_id": 1049,
+        "node_name": "Pie Donut Chart",
+        "node_label": "Node / Visualizer",
+        "node_des": "A pie or donut chart based on the NVD3 library.\n The node supports custom CSS styling. You can simply put CSS rules into a single string and set it as a flow variable 'customCSS' in the node configuration dialog. You will find the list of available classes and their description on our documentation page . \n",
+        "input_ports": [
+            {
+                "port_type": "Table",
+                "port_name": "Display data",
+                "port_des": "Data table containing the categories and values to be plotted in a pie chart."
+            }
+        ],
+        "output_ports": [
+            {
+                "port_type": "Image",
+                "port_name": "Pie chart image",
+                "port_des": "SVG image of the pie chart."
+            }
+        ]
+    },
+    {
+        "node_id": 1322,
+        "node_name": "Sorter",
+        "node_label": "Node / Manipulator",
+        "node_des": " This node sorts the rows according to user-defined criteria. In the dialog, select the columns according to which the data should be sorted. Also select whether it should be sorted in ascending or descending order. Additionally, provides the option to compare string-compatible columns in alphanumeric instead of lexicographic order, for example \"Row2\" before \"Row10\" instead of \"Row10\" before \"Row2\". \n",
+        "input_ports": [
+            {
+                "port_type": "Table",
+                "port_name": "Input Table",
+                "port_des": "Table to be sorted."
+            }
+        ],
+        "output_ports": [
+            {
+                "port_type": "Table",
+                "port_name": "Sorted Table",
+                "port_des": "A sorted table."
+            }
+        ]
+    },
+    {
+        "node_id": 290,
+        "node_name": "Data to Report",
+        "node_label": "Node / Sink",
+        "node_des": " The incoming data is provided as a data set to the KNIME Report Designer. \n",
+        "input_ports": [
+            {
+                "port_type": "Table",
+                "port_name": "Input to be provided to the Report Designer",
+                "port_des": "Input table to be provided."
+            }
+        ],
+        "output_ports": []
+    },
+    {
+        "node_id": 1051,
+        "node_name": "Pivoting",
+        "node_label": "Node / Manipulator",
+        "node_des": "The node counts the co-occurrences of all value pairs between the group and pivot column. If an aggregation column is selected, the value between the co-occurrences is computed based on the selected aggregation method. In the resulting pivot table, the possible values of the group column appear as row IDs and the values of the pivot column as column names. The value in each cell of the table is the aggregation value, either the number of occurrences or the computed aggregation value. \n",
+        "input_ports": [
+            {
+                "port_type": "Table",
+                "port_name": "Data table",
+                "port_des": "Input table with at least two columns used to group against the pivot column. In addition, an aggregation column can be applied."
+            }
+        ],
+        "output_ports": [
+            {
+                "port_type": "Table",
+                "port_name": "Pivoting table",
+                "port_des": "Pivoting table with aggregated values of co-occurrences between pivot and group column."
+            }
+        ]
+    },
+    {
+        "node_id": 518,
+        "node_name": "File Reader",
+        "node_label": "Node / Source",
+        "node_des": " Reads the most common text files. To auto-guess the structure of the file click the Autodetect format button. If you encounter problems with incorrect guessed data types disable the Limit data rows scanned option in the Advanced Settings tab. If the input file structure changes between different invocations, enable the Support changing file schemas option in the Advanced Settings tab. For further details see the KNIME File Handling Guide  File Handling Guide  . \n Note: If you find that this node can't read your file, try the File Reader (Complex Format) node. It offers more options for reading complex files. \n This node can access a variety of different  file systems.  More information about file handling in KNIME can be found in the official  File Handling Guide.  \n",
+        "input_ports": [],
+        "output_ports": [
+            {
+                "port_type": "Table",
+                "port_name": "File Table",
+                "port_des": "File being read with number and types of columns guessed automatically."
+            }
+        ]
+    },
+    {
+        "node_id": 1272,
+        "node_name": "Send to Tableau Server",
+        "node_label": "Node / Sink",
+        "node_des": " Sends the input data to a Tableau Server. The node uses the Tableau Hyper API to generate a hyper file and, secondly, send that hyper file as a datasource to the Tableau Server via the Tableau REST API. \n Uses version 2.8 of the Tableau Server REST API. Therefore the minimum Tableau server version is 10.5. \n",
+        "input_ports": [
+            {
+                "port_type": "Table",
+                "port_name": "Data",
+                "port_des": "Data to be sent to Tableau Server. Only primitive types (string, numbers, dates) are used."
+            }
+        ],
+        "output_ports": []
+    },
+    {
+        "node_id": 969,
+        "node_name": "Number To String",
+        "node_label": "Node / Manipulator",
+        "node_des": " Converts numbers in a column (or a set of columns) to strings. Note that for an advanced configuration, such as rounding or representation in scientific notification you can also use the \"Round Double\" node. \n",
+        "input_ports": [
+            {
+                "port_type": "Table",
+                "port_name": "Input",
+                "port_des": "Arbitrary input data."
+            }
+        ],
+        "output_ports": [
+            {
+                "port_type": "Table",
+                "port_name": "Transformed input",
+                "port_des": "Input data with new StringTypes."
+            }
+        ]
+    },
+    {
+        "node_id": 1062,
+        "node_name": "PMML Reader",
+        "node_label": "Node / Source",
+        "node_des": " This node reads any PMML model from a PMML compliant XML file. \n This node can access a variety of different  file systems.  More information about file handling in KNIME can be found in the official  File Handling Guide.  \n",
+        "input_ports": [],
+        "output_ports": [
+            {
+                "port_type": "PMML",
+                "port_name": "PMML Model",
+                "port_des": "The PMML model just read."
+            }
+        ]
+    },
+    {
+        "node_id": 354,
+        "node_name": "Decision Tree Predictor",
+        "node_label": "Node / Predictor",
+        "node_des": " This node uses an existing decision tree (passed in through the model port) to predict the class value for new patterns. The Node can be configured as follows: \n",
+        "input_ports": [
+            {
+                "port_type": "PMML",
+                "port_name": "Decision Tree Model",
+                "port_des": "A previously learned decision tree model"
+            },
+            {
+                "port_type": "Table",
+                "port_name": "Data to classify",
+                "port_des": "Input data to classify"
+            }
+        ],
+        "output_ports": [
+            {
+                "port_type": "Table",
+                "port_name": "Classified Data",
+                "port_des": "The input table with one column added containing the classification and the probabilities depending on the options"
+            }
+        ]
+    },
+    {
+        "node_id": 1227,
+        "node_name": "Rule Engine",
+        "node_label": "Node / Manipulator",
+        "node_des": " This node takes a list of user-defined rules and tries to match them to each row in the input table. If a rule matches, its outcome value is added into a new column. The first matching rule in order of definition determines the outcome.  Each rule is represented by a line. To add comments, start a line with // (comments can not be placed in the same line as a rule). Anything after // will not be interpreted as a rule. Rules consist of a condition part (antecedent), which must evaluate to true or false , and an outcome (consequent, after the => symbol) which is put into the new column if the rule matches. \n The outcome of a rule may be any of the following: a string (between \" or / ), a number, a boolean constant, a reference to another column or the value of a flow variable value. The type of the outcome column is the common super type of all possible outcomes (including the rules that can never match). If no rule matches, the outcome is a missing value. \n Columns are given by their name surrounded by $, numbers are given in the usual decimal representation. Note that strings must not contain (double-)quotes. Flow variables are represented by $${ TypeCharacterAndFlowVarName }$$ . The TypeCharacter should be 'D' for double (real) values, 'I' for integer values and 'S' for strings. You can insert column names or flow variables by hand or by clicking in the respective lists in the dialog. \n The logical expressions can be grouped with parentheses. The precedence rules for them are the following: NOT binds most, AND , XOR and finally OR the least. Comparison operators always take precedence over logical connectives. All operators (and their names) are case-sensitive. \n The ROWID represents the row key string, the ROWINDEX is a the index of the row (first row has 0 value), while ROWCOUNT stands for the number of rows in the table. \nSome example rules (each should be in one line):\n// This is a comment\n$Col0$ > 0 => \"Positive\"\n\n            \t\t\tWhen the values in Col0 are greater than 0, we assign Positive to the\n\t\t\tresult column value (if no previous rule matched).\n\t\t\t\n            $Col0$ = \"Active\" AND $Col1$ <= 5 => \"Outlier\"\n\n            \t\t\tYou can combine conditions.\n\t\t\t\n            $Col0$ LIKE \"Market Street*\" AND \n    ($Col1$ IN (\"married\", \"divorced\") \n        OR $Col2$ > 40) => \"Strange\"\n$Col0$ MATCHES $${SFlowVar0}$$ OR $$ROWINDEX$$ < $${IFlowVar1}$$ =>\n    $Col0$\n\n            \t\t\tWith parentheses you can combine multiple conditions. The result in\n\t\t\tthe second case comes from one of the columns.\n\t\t\t\n            $Col0$ > 5 => $${SCol1}$$\n\n            \t\t\tThe result can also come from a flow variable.\n\t\t\t\n             You can use either Ctrl+Space to insert predefined parts, or select them from the upper controls. \n The following comparisons result true (other values are neither less, nor greater or equal to missing and NaN values): \n ? =,<=,>= ? \n NaN =,<=,>= NaN \n\n",
+        "input_ports": [
+            {
+                "port_type": "Table",
+                "port_name": "Table",
+                "port_des": "Any datatable"
+            }
+        ],
+        "output_ports": [
+            {
+                "port_type": "Table",
+                "port_name": "Classified values",
+                "port_des": "The input table with an additional column containing the outcome of the matching rule for each row."
+            }
+        ]
+    },
+    {
+        "node_id": 1409,
+        "node_name": "String Manipulation",
+        "node_label": "Node / Manipulator",
+        "node_des": " Manipulates strings like search and replace, capitalize or remove leading and trailing white spaces. \nExamples:\n To remove leading and trailing blanks from a column with name c0 you would use the expression:  strip($c0$) \n If you have your customer names in column names with titles Mr and Mister and you want to normalize the data so that only Mr is used you could use the expression:  replace($names$, \"Mister\", \"Mr\")  or you could combine it to  replace(replace($names$, \"Mister\", \"Mr\"), \"Miss\", \"Ms\") \n Or if you want to have the number of characters of the strings in a column with name text :  length($text$) \n Note that strings which are part of the expression and are not from the input data (or the result of another wrapped function call) need to be enclosed in double quotes ('\"'). Additionally, if the string contains a quote character, it must be escaped using a backslash character ('\\\"'). Finally, other special characters such as single quotes and backslashes need to be escaped using a backslash. For instance, a single backslash in a string is written as two consecutive backslash characters; the first one acts as the escape character for the second. \n",
+        "input_ports": [
+            {
+                "port_type": "Table",
+                "port_name": "Input table",
+                "port_des": "Input table."
+            }
+        ],
+        "output_ports": [
+            {
+                "port_type": "Table",
+                "port_name": "Appended table",
+                "port_des": "Input table with an additional calculated column or one column replaced."
+            }
+        ]
+    },
+    {
+        "node_id": 871,
+        "node_name": "Missing Value",
+        "node_label": "Node / Manipulator",
+        "node_des": " This node helps handle missing values found in cells of the input table. The first tab in the dialog (labeled \"Default\") provides default handling options for all columns of a given type. These settings apply to all columns in the input table that are not explicitly mentioned in the second tab, labeled \"Individual\". This second tab permits individual settings for each available column (thus, overriding the default). To make use of this second approach, select a column or a list of columns which needs extra handling, click \"Add\", and set the parameters. Click on the label with the column name(s), will select all covered columns in the column list. To remove this extra handling (and instead use the default handling), click the \"Remove\" button for this column.  Options marked with an asterisk (*) will result in non-standard PMML. If you select such an option, the warning label in the dialog will become red and a warning will be shown during execution of the node. Non-standard PMML uses extensions that cannot be read by other tools than KNIME. \n",
+        "input_ports": [
+            {
+                "port_type": "Table",
+                "port_name": "Input table",
+                "port_des": "Table with missing values"
+            }
+        ],
+        "output_ports": [
+            {
+                "port_type": "Table",
+                "port_name": "Output table",
+                "port_des": "Table with replaced missing values"
+            },
+            {
+                "port_type": "PMML",
+                "port_name": "PMML Transformations",
+                "port_des": "Table with PMML documenting the missing value replacement"
+            }
+        ]
+    },
+    {
+        "node_id": 1216,
+        "node_name": "Row Filter",
+        "node_label": "Node / Manipulator",
+        "node_des": "The node allows for row filtering according to certain criteria. It can include or exclude: certain ranges (by row number), rows with a certain row ID, and rows with a certain value in a selectable column (attribute). Below are the steps on how to configure the node in its configuration dialog. Note: The node doesn't change the domain of the data table. I. e. the upper and lower bounds or the possible values in the table spec are not adapted, even if one of the bounds or one value is fully filtered out. \n",
+        "input_ports": [
+            {
+                "port_type": "Table",
+                "port_name": "To be filtered",
+                "port_des": "Data table from which to filter rows."
+            }
+        ],
+        "output_ports": [
+            {
+                "port_type": "Table",
+                "port_name": "Filtered",
+                "port_des": "Data table with rows meeting the specified criteria"
+            }
+        ]
+    },
+    {
+        "node_id": 1,
+        "node_name": "2D Density Plot",
+        "node_label": "Node / Visualizer",
+        "node_des": " A 2D Density plot with optional axis-based histograms built with the Plotly.js library. This plot is useful for exploring the distribution and density in a dataset. You can compare two features at a time and optionally display histograms with the linear distribution of each feature along the axis. \n The node supports custom CSS styling. You can simply put CSS rules into a single string and set it as a flow variable 'customCSS' in the node configuration dialog. Current KNIME classes are NOT YET supported, so class names will have to be deduced from the view itself. We are hoping to support standard KNIME classes in an upcoming update. \n  \n Please note: the Plotly.js KNIME extension is currently in Labs. It is recommended that you handle missing values and normalize your data before using visualization nodes in this extension to improve performance. Please feel free to leave feedback and suggestions on our community forum here . \n",
+        "input_ports": [
+            {
+                "port_type": "Table",
+                "port_name": "Display data",
+                "port_des": "Data table to display in an interactive 2D Density Plot."
+            }
+        ],
+        "output_ports": [
+            {
+                "port_type": "Image",
+                "port_name": "2D Density chart image",
+                "port_des": "SVG image of the 2D Density chart if that option has been enabled."
+            },
+            {
+                "port_type": "Table",
+                "port_name": "Input Data + View Selection",
+                "port_des": "Data table containing the input data with an appended boolean column representing which rows were selected in the view."
+            }
+        ]
+    },
+    {
+        "node_id": 1515,
+        "node_name": "Twitter API Connector",
+        "node_label": "Node / Source",
+        "node_des": " Creates a connection to access Twitter's API. You will need to sign-in with your twitter account at dev.twitter.com and register your application under \"My Applications\" in order to acquire your API Key and Access Token. The API key should be immediately available and access tokens may be generated and revoked as needed. Both should be available from the API Keys tab of the page for your application. \n",
+        "input_ports": [],
+        "output_ports": [
+            {
+                "port_type": "Twitter",
+                "port_name": "Twitter API Connection",
+                "port_des": "A connection that can be used to access Twitter's API."
+            }
+        ]
+    },
+    {
+        "node_id": 1518,
+        "node_name": "Twitter Search",
+        "node_label": "Node / Manipulator",
+        "node_des": " Search over Twitter's API.   Twitter API accepts a determined amount of requests in a 15 minute windows. For more details see API Rate Limits and Rate Limits: Chart . The amount of request the Twitter API accepts is limited to 180 (user authentication) or 450 (application authentication) in a 15 minute window. Since one request can return a maximum of 100 tweets, The maximum amount of tweets that can be pulled in a 15 minute window is 18000 or 45000, respectively. For more details see GET search/tweets .   Please note that Twitter's search service and, by extension, the Search API is not meant to be an exhaustive source of Tweets. Not all Tweets will be indexed or made available via the search interface. \n",
+        "input_ports": [
+            {
+                "port_type": "Twitter",
+                "port_name": "Twitter API Connection",
+                "port_des": "Connection to Twitter's API."
+            }
+        ],
+        "output_ports": [
+            {
+                "port_type": "Table",
+                "port_name": "Search results",
+                "port_des": "Table containing the search results"
+            }
+        ]
+    },
+    {
+        "node_id": 154,
+        "node_name": "Column Filter",
+        "node_label": "Node / Manipulator",
+        "node_des": " This node allows columns to be filtered from the input table while only the remaining columns are passed to the output table. Within the dialog, columns can be moved between the Include and Exclude list. \n",
+        "input_ports": [
+            {
+                "port_type": "Table",
+                "port_name": "Table to be filtered",
+                "port_des": "Table from which columns are to be excluded."
+            }
+        ],
+        "output_ports": [
+            {
+                "port_type": "Table",
+                "port_name": "Filtered table",
+                "port_des": "Table excluding selected columns."
+            }
+        ]
+    },
+    {
+        "node_id": 1389,
+        "node_name": "SQLite Connector",
+        "node_label": "Node / Source",
+        "node_des": " This node creates a connection to a SQLite database file via its JDBC driver. You need to provide the path to the database file or the name when using in-memory mode. No username and password are required for SQLite databases.  This node uses the selected driver's JDBC URL template to create the concrete database URL. Field validation in the dialog depends on whether the (included) tokens referencing them are mandatory or optional in the template. \n",
+        "input_ports": [],
+        "output_ports": [
+            {
+                "port_type": "DB Session",
+                "port_name": "DB Connection",
+                "port_des": "SQLite DB Connection."
+            }
+        ]
+    },
+    {
+        "node_id": 350,
+        "node_name": "DB Update",
+        "node_label": "Node / Sink",
+        "node_des": " Updates all data rows from the selected database table that match the values of a row from the selected KNIME input table columns. All selected column names of the KNIME table need to exactly match the column names from the database. The WHERE column values of the input KNIME data row need to match the values of the database row to update; whereas the SET database column values are replaced by the input KNIME column values. Only the rows matching all values of the selected column of any given input row will be updated. The column order of the KNIME table and the database table do not need to match.  The output table contains two additional columns if Append update statuses checkbox is checked. The first extra columns is the number of rows affected by the UPDATE statement. A number greater than or equal to zero -- indicates that the command was processed successfully and is an update count giving the number of rows in the database that were affected by the command's execution. A value of -2 -- indicates that the command was processed successfully but that the number of rows affected is unknown. The second shows a warning message, if any. \n",
+        "input_ports": [
+            {
+                "port_type": "Table",
+                "port_name": "Data to update in the database",
+                "port_des": "KNIME data table with the data rows to be updated in the database."
+            },
+            {
+                "port_type": "DB Session",
+                "port_name": "DB Connection",
+                "port_des": "DB Connection to the database."
+            }
+        ],
+        "output_ports": [
+            {
+                "port_type": "Table",
+                "port_name": "Input Data with Update Status",
+                "port_des": "Input KNIME data table with additional columns providing the number of affected rows in the database and warnings, if checked in the dialog."
+            },
+            {
+                "port_type": "DB Data",
+                "port_name": "DB Data",
+                "port_des": "DB Data referencing the selected database table."
+            }
+        ]
+    },
+    {
+        "node_id": 351,
+        "node_name": "DB Writer",
+        "node_label": "Node / Sink",
+        "node_des": " Inserts data rows into the database based on the selected columns from the input table. \n If the database table does not exist it will be created by the node prior inserting the values. The new table will have a column for each input KNIME column. The database column name will be the same as the name of the input KNIME column. The database type is derived from the given KNIME type based on the output type mapping rules specified in the \"Output Type Mapping\" tab. All database columns will allow missing values (NULL). Please use the DB Table Creator node if you want to control the properties of the created database table. \n If the table already exists in the database all selected column names need to exactly match the column names within the database table. \n The output table contains two additional columns if the Append insert statuses checkbox is checked. The first extra column is the number of rows affected by the INSERT statement. A number greater than or equal to zero -- indicates that the was processed successfully and is an insert count giving the number of rows in the database that were affected by the command's execution A value of -2 -- indicates that the command was processed successfully but that the number of rows affected is unknown. The second shows a warning message, if any. \n",
+        "input_ports": [
+            {
+                "port_type": "Table",
+                "port_name": "Data to write into the database",
+                "port_des": "KNIME data table with the data rows to write into the database."
+            },
+            {
+                "port_type": "DB Session",
+                "port_name": "DB Connection",
+                "port_des": "DB Connection to connect to the database."
+            }
+        ],
+        "output_ports": [
+            {
+                "port_type": "Table",
+                "port_name": "Input Data with Write Status",
+                "port_des": "Input KNIME data table with additional columns providing the number of affected rows in the database and warnings, if checked in the dialog."
+            },
+            {
+                "port_type": "DB Data",
+                "port_name": "DB Data",
+                "port_des": "DB Data referencing the selected table."
+            }
+        ]
+    },
+    {
+        "node_id": 630,
+        "node_name": "Heatmap",
+        "node_label": "Node / Visualizer",
+        "node_des": " A Heatmap visualization node. The view can be accessed either via the \u201cinteractive view\u201d action on the executed node or on KNIME WebPortal.  In the node configuration, you can choose the columns to use for horizontal and vertical dimensions and enable certain controls, which are then available in the view. This includes the ability to choose different aggregation methods and the column with the data to color map or the possibility to set a title. The configuration also offers a preview of the view, which should help to get the Heatmap fast in the desired shape.  Note, this node is currently under development. Future versions of the node might have improved or changed functionality. Interactivity between multiple views is currently only possible with views also coming from this labs extension. \n",
+        "input_ports": [
+            {
+                "port_type": "Table",
+                "port_name": "Input Table",
+                "port_des": "Data table containing the categories and values to be plotted in a heatmap."
+            }
+        ],
+        "output_ports": []
+    },
+    {
+        "node_id": 803,
+        "node_name": "Linear Correlation",
+        "node_label": "Node / Evaluator",
+        "node_des": " Calculates for each pair of selected columns a correlation coefficient, i.e. a measure of the correlation of the two variables. \n Which correlation measure is applied depends on the types of the underlying variables:  numeric <-> numeric :  Pearson's product-moment coefficient . Missing values in a column are ignored in such a way that for the computation of the correlation between two columns only complete records are taken into account. For instance, if there are three columns A, B and C and a row contains a missing value in column A but not in B and C, then the row will be ignored for computing the correlation between (A, B) and (A, C). It will not be ignored for the correlation between (B, C). This corresponds to the function cor(<data.frame>, use=\"pairwise.complete.obs\") in the R statistics package.  The value of this measure ranges from -1 (strong negative correlation) to 1 (strong positive correlation). A value of 0 represents no linear correlation (the columns might still be highly dependent on each other, though).  The p-value for these columns indicates the probability of an uncorrelated system producing a correlation at least as extreme, if the mean of the correlation is zero and it follows a t-distribution with df degrees of freedom.  nominal <-> nominal :  Pearson's chi square test on the contingency table . This value is then normalized to a range [0,1] using  Cramer's V , whereby 0 represents no correlation and 1 a strong correlation. Missing values in nominal columns are treated such as they were a self-contained possible value. If one of the two columns contains more possible values than specified in the dialog (default 50), the correlation will not be computed.  The p-value for these columns indicates the probability of independent variables showing as extreme level of dependence. The value is the same as for a chi-square test of independence of variables in a contingency table.  Correlation measures for other pairs of columns are not available, they are represented by missing values in the output table and crosses in the accompanying view. \n",
+        "input_ports": [
+            {
+                "port_type": "Table",
+                "port_name": "Numeric input data",
+                "port_des": "Numeric input data to evaluate"
+            }
+        ],
+        "output_ports": [
+            {
+                "port_type": "Table",
+                "port_name": "Correlation measure",
+                "port_des": "Correlation variables, p-values and degrees of freedom."
+            },
+            {
+                "port_type": "Table",
+                "port_name": "Correlation matrix",
+                "port_des": "Correlation variables in a matrix representation."
+            },
+            {
+                "port_type": "Correlation",
+                "port_name": "Correlation model",
+                "port_des": "A model containing the correlation measures. This model is appropriate to be read by the Correlation Filter node."
+            }
+        ]
+    },
+    {
+        "node_id": 1250,
+        "node_name": "Scorer",
+        "node_label": "Node / Evaluator",
+        "node_des": " Compares two columns by their attribute value pairs and shows the confusion matrix, i.e. how many rows of which attribute and their classification match. Additionally, it is possible to hilight cells of this matrix to determine the underlying rows. The dialog allows you to select two columns for comparison; the values from the first selected column are represented in the confusion matrix's rows and the values from the second column by the confusion matrix's columns. The output of the node is the confusion matrix with the number of matches in each cell. Additionally, the second out-port reports a number of  accuracy statistics such as True-Positives, False-Positives, True-Negatives, False-Negatives, Recall, Precision, Sensitivity, Specificity, F-measure, as well as the overall accuracy and Cohen's kappa . \n",
+        "input_ports": [
+            {
+                "port_type": "Table",
+                "port_name": "Input table",
+                "port_des": "Table containing at least two columns to compare."
+            }
+        ],
+        "output_ports": [
+            {
+                "port_type": "Table",
+                "port_name": "Confusion matrix",
+                "port_des": "The confusion matrix."
+            },
+            {
+                "port_type": "Table",
+                "port_name": "Accuracy statistics",
+                "port_des": "The accuracy statistics table."
+            }
+        ]
+    },
+    {
+        "node_id": 146,
+        "node_name": "Color Appender",
+        "node_label": "Node / Visualizer",
+        "node_des": " Assigns an existing color model to a table. If a color model was configured for a dataset and this color model should be reused, the model outport of the Color Manager should be connected to the model inport of the Color Appender. In the Color Appender the color model could also be applied to another column. This works for numeric columns unrestricted and for nominal columns only if the possible values are exactly the same. In general a color model for nominal values is incompatible with a color model for numeric values. \n This may be useful if the column for which the color model is defined gets lost somewhere in the workflow or is replaced by another column or if there are two different datasets with the same class column. \n",
+        "input_ports": [
+            {
+                "port_type": "Color",
+                "port_name": "Color Settings",
+                "port_des": "Existing color model to be applied to the input table"
+            },
+            {
+                "port_type": "Table",
+                "port_name": "Table",
+                "port_des": "Table to which colors are applied to"
+            }
+        ],
+        "output_ports": [
+            {
+                "port_type": "Table",
+                "port_name": "Table with Colors",
+                "port_des": "Table with colors for the selected column"
+            }
+        ]
+    },
+    {
+        "node_id": 353,
+        "node_name": "Decision Tree Learner",
+        "node_label": "Node / Learner",
+        "node_des": " This node induces a classification decision tree in main memory. The target attribute must be nominal. The other attributes used for decision making can be either nominal or numerical. Numeric splits are always binary (two outcomes), dividing the domain in two partitions at a given split point. Nominal splits can be either binary (two outcomes) or they can have as many outcomes as nominal values. In the case of a binary split the nominal values are divided into two subsets. The algorithm provides two quality measures for split calculation; the gini index and the gain ratio. Further, there exist a post pruning method to reduce the tree size and increase prediction accuracy. The pruning method is based on the minimum description length principle.  The algorithm can be run in multiple threads, and thus, exploit multiple processors or cores.  Most of the techniques used in this decision tree implementation can be found in \"C4.5 Programs for machine learning\", by J.R. Quinlan and in \"SPRINT: A Scalable Parallel Classifier for Data Mining\", by J. Shafer, R. Agrawal, M. Mehta ( http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.104.152&rep=rep1&type=pdf )  \n",
+        "input_ports": [
+            {
+                "port_type": "Table",
+                "port_name": "Input data",
+                "port_des": "The pre-classified data that should be used to induce the decision tree. At least one attribute must be nominal."
+            }
+        ],
+        "output_ports": [
+            {
+                "port_type": "PMML",
+                "port_name": "Decision Tree Model",
+                "port_des": "The induced decision tree. The model can be used to classify data with unknown target (class) attribute. To do so, connect the model out port to the \"Decision Tree Predictor\" node."
+            }
+        ]
+    },
+    {
+        "node_id": 1443,
+        "node_name": "Table Indexer",
+        "node_label": "Node / Manipulator",
+        "node_des": " Creates an index from the input table. Each table row is represented as a document in the index. Each document contains at least one index field which contains the row id. The index might contain more fields depending on the selected table columns to index. The generated index can be searched using the Index Query node. \n",
+        "input_ports": [
+            {
+                "port_type": "Table",
+                "port_name": "Data Table",
+                "port_des": "The data table to index"
+            }
+        ],
+        "output_ports": [
+            {
+                "port_type": "Lucene",
+                "port_name": "Output Index",
+                "port_des": "The index"
+            }
+        ]
+    },
+    {
+        "node_id": 685,
+        "node_name": "Index Query",
+        "node_label": "Node / Manipulator",
+        "node_des": " This node allows to query a given index. The node either creates a new data table or filters an optional input table based on the result of the query. \n If no input table is available the data table is created based on the information that is available in the given index. If the index contains the original data (see \"Save original data\" option in the Table Indexer node) the table will contain a column for each index field that supports the storing of original data. Whereas the table contains only the row id of the matching document if the index does not contain the original data. \n If an input table is available it is filtered based on the result of the query. When filtering the values of a row have to match the values of one of the result documents from the index as specified on the Result Field to Column Matching tab. \n            \t\t\n\t\t\n\t\tThe following sections describe the query syntax that is support. \n\t\tThe syntax is based on Lucene. For a detailed description of Lucene and\n\t\tits syntax see the\n\t\t\n            Lucene project page\n            .\n\t\t\n        \n            Terms\n                    \n        A query is broken up into terms and operators. There are two types of terms: Single Terms and Phrases.\n\n        A Single Term is a single word such as \"test\" or \"hello\".\n\n        A Phrase is a group of words surrounded by double quotes such as \"hello dolly\".\n\n        Multiple terms can be combined together with Boolean operators to form a more complex query (see below).\n\n        Note: The analyzer used to create the index will be used on the terms and phrases in the query string. \n        The type of analyzer is automatically chosen based on the DataType. \n        If the field is marked as not analyzed the term is taken as is.\n        \n        \n            Date formats\n                    If you want to query a date/time field you have to define the date in one of the following formats:\n        \n            \nyyyy-MM-dd;HH.mm.ss.S;Z e.g. 2012-05-28;17.25.33.500;PDT\nyyyy-MM-dd;HH.mm.ss.S e.g. 2012-05-28;17.25.33.500\nyyyy-MM-dd;HH.mm.ss;Z e.g. 2012-05-28;17.25.33;GMT\nyyyy-MM-dd;HH.mm.ss e.g. 2012-05-28;17.25.33\nyyyy-MM-dd e.g. 2012-05-28\nHH.mm.ss.S e.g. 17.25.33.500\nHH.mm.ss e.g. 17.25.33\n\n                    Examples for valid time zones are: GMT,EST,PDT. \n        The Coordinated Universal Time (UTC) is used as default time zone if none is specified.\n        The date is internal represented as the number of milliseconds since the standard  base \n        time known as \"the epoch\", namely January 1, 1970, 00:00:00 GMT. \n        \n        \n            Fields\n                    Lucene supports fielded data. When performing a search you can either specify a field, or use the default field. \n        By default all available fields are searched.\n\n        \n            If the special characters and space must be escaped in field names using \\. Fore details about the special characters and how to escape them see the \"Escaping Special Characters\" section below.\n            \t\tYou can search any field by typing the field name followed by a colon \":\" and then the term you are looking for.\n\t\t\n\t\tAs an example, let's assume a Lucene index contains two fields, title and text and text is the default field. \n\t\tIf you want to find the document entitled \"The Right Way\" which contains the text \"don't go this way\", you can enter:\n\t\t\n             title:\"The Right Way\" AND text:go \n            \t\tor\n\t\t\n             title:\"Do it right\" AND right \n            \t\tSince text is the default field, the field indicator is not required.\n\t\t\n\t\tNote: The field is only valid for the term that it directly precedes, so the query\n\t\t\n             title:Do it right \n            \t\tWill only find \"Do\" in the title field. It will find \"it\" and \"right\" in the default field (in this case the text field).\n        \n\n        \n            Term Modifiers\n                    Lucene supports modifying query terms to provide a wide range of searching options.\n        \n            Wildcard Searches\n                    Lucene supports single and multiple character wildcard searches within single terms (not within phrase queries).\n\t\t\n\t\tTo perform a single character wildcard search use the \"?\" symbol.\n\t\t\n\t\tTo perform a multiple character wildcard search use the \"*\" symbol.\n\t\t\n\t\tThe single character wildcard search looks for terms that match that with the single character replaced. \n\t\tFor example, to search for \"text\" or \"test\" you can use the search:\n\t\t\n             te?t \n            \t\tMultiple character wildcard searches looks for 0 or more characters. \n\t\tFor example, to search for test, tests or tester, you can use the search:\n\t\t\n             test* \n            \t\tYou can also use the wildcard searches in the middle of a term.\n\t\t\n             te*t \n            \t\tNote: You cannot use a * or ? symbol as the first character of a search.\n        \n            Regular Expression Searches\n                    Lucene supports regular expression searches matching a pattern between forward slashes \"/\". \n        The syntax may change across releases, but the current supported syntax is documented in the \n        \n            RegEx\n             class. \n        For example to find documents containing \"moat\" or \"boat\":\n\n        /[mb]oat/\n        \n        \n            Fuzzy Searches\n                    Lucene supports fuzzy searches based on Damerau-Levenshtein Distance. To do a fuzzy search use the tilde, \"~\", symbol at the end of a Single word Term. For example to search for a term similar in spelling to \"roam\" use the fuzzy search:\n        \n             roam~ \n                    This search will find terms like foam and roams.\n        An additional (optional) parameter can specify the maximum number of edits allowed. The value is between 0 and 2, For example:\n        \n             roam~1 \n                    The default that is used if the parameter is not given is 2 edit distances.\n        Previously, a floating point value was allowed here. This syntax is considered deprecated and will be removed in Lucene 5.0\n\t\t\n        \n            Proximity Searches\n                    Lucene supports finding words are a within a specific distance away. \n        To do a proximity search use the tilde, \"~\", symbol at the end of a Phrase. \n        For example to search for a \"apache\" and \"jakarta\" within 10 words of each other in a document use the search:\n\t\t\n             \"jakarta apache\"~10 \nRange Searches\n                    Range Queries allow one to match documents whose field(s) values are between the lower and upper bound specified by the Range Query. \n        Range Queries can be inclusive or exclusive of the upper and lower bounds. Sorting is done lexicographically.\n\t\t\n             mod_date:[2002/01/01 TO 2003/01/01] \n            \t\tThis will find documents whose mod_date fields have values between 2002/01/01 and 2003/01/01, inclusive. \n\t\tNote that Range Queries are not reserved for date fields. You could also use range queries with non-date fields:\n\t\t\n             title:{Aida TO Carmen} \n            \t\tThis will find all documents whose titles are between Aida and Carmen, but not including Aida and Carmen.\n\t\t\n\t\tInclusive range queries are denoted by square brackets. Exclusive range queries are denoted by curly brackets.\n\t\t\n\t\t\n        \n            Boosting a Term\n                    Lucene provides the relevance level of matching documents based on the terms found. \n        To boost a term use the caret, \"^\", symbol with a boost factor (a number) at the end of the term you are searching. \n        The higher the boost factor, the more relevant the term will be.\n\t\t\n\t\tBoosting allows you to control the relevance of a document by boosting its term. For example, if you are searching for\n\t\t\n             jakarta apache \n            \t\tand you want the term \"jakarta\" to be more relevant boost it using the ^ symbol along with the boost factor next to the term. You would type:\n\t\t\n             jakarta^4 apache \n            \t\tThis will make documents with the term jakarta appear more relevant. You can also boost Phrase Terms as in the example:\n\t\t\n             \"jakarta apache\"^4 \"Apache Lucene\" \n            \t\tBy default, the boost factor is 1. Although the boost factor must be positive, it can be less than 1 (e.g. 0.2)\n        \n\n\n        \n            Boolean Operators\n                    Boolean operators allow terms to be combined through logic operators. \n        Lucene supports AND, \"+\", OR, NOT and \"-\" as Boolean operators(Note: Boolean operators must be ALL CAPS).\n\t\t\n        \n            OR\n            \t\tThe OR operator is the default conjunction operator. \n\t\tThis means that if there is no Boolean operator between two terms, the OR operator is used. \n\t\tThe OR operator links two terms and finds a matching document if either of the terms exist in a document. \n\t\tThis is equivalent to a union using sets. The symbol || can be used in place of the word OR.\n\t\t\n\t\tTo search for documents that contain either \"jakarta apache\" or just \"jakarta\" use the query:\n\t\t\n             \"jakarta apache\" jakarta \n            \t\tor\n\t\t\n             \"jakarta apache\" OR jakarta \nAND\n            \t\tThe AND operator matches documents where both terms exist anywhere in the text of a single document.\n\t\tThis is equivalent to an intersection using sets. The symbol && can be used in place of the word AND.\n\t\t\n\t\tTo search for documents that contain \"jakarta apache\" and \"Apache Lucene\" use the query:\n\t\t\n             \"jakarta apache\" AND \"Apache Lucene\" \n+\n            \t\tThe \"+\" or required operator requires that the term after the \"+\" symbol exist somewhere in a the field of a single document.\n\t\t\n\t\tTo search for documents that must contain \"jakarta\" and may contain \"lucene\" use the query:\n\t\t\n             +jakarta lucene \nNOT\n            \t\tThe NOT operator excludes documents that contain the term after NOT. \n\t\tThis is equivalent to a difference using sets.\n\t\t The symbol ! can be used in place of the word NOT.\n\t\t\n\t\tTo search for documents that contain \"jakarta apache\" but not \"Apache Lucene\" use the query:\n\t\t\n             \"jakarta apache\" NOT \"Apache Lucene\" \n            \t\tNote: The NOT operator cannot be used with just one term. For example, the following search will return no results:\n\t\t\n             NOT \"jakarta apache\" \n-\n            \t\tThe \"-\" or prohibit operator excludes documents that contain the term after the \"-\" symbol.\n\t\t\n\t\tTo search for documents that contain \"jakarta apache\" but not \"Apache Lucene\" use the query:\n\t\t\n             \"jakarta apache\" -\"Apache Lucene\" \nGrouping\n                    Lucene supports using parentheses to group clauses to form sub queries. \n        This can be very useful if you want to control the boolean logic for a query.\n\t\t\n\t\tTo search for either \"jakarta\" or \"apache\" and \"website\" use the query:\n\t\t\n             (jakarta OR apache) AND website \n            \t\tThis eliminates any confusion and makes sure you that website must exist and either term jakarta or apache may exist.\n\t\t\n\t\t\n\t\t\n            Field Grouping\n            \t\t\n\t\tLucene supports using parentheses to group multiple clauses to a single field.\n\t\t\n\t\tTo search for a title that contains both the word \"return\" and the phrase \"pink panther\" use the query:\n\t\t\n             title:(+return +\"pink panther\") \nEscaping Special Characters\n            \t\t\n\t\tLucene supports escaping special characters that are part of the query syntax. The current list special characters are\n\t\t\n             + - && || ! ( ) { } [ ] ^ \" ~ * ? : \\ / \n            \t\tTo escape these character use the \\ before the character. For example to search for (1+1):2 use the query:\t\t\n\t\t\\(1\\+1\\)\\:2\n\t\t\n        \n        \n        ",
+        "input_ports": [
+            {
+                "port_type": "Lucene",
+                "port_name": "Index",
+                "port_des": "The index"
+            },
+            {
+                "port_type": "Table",
+                "port_name": "Optional Data Table",
+                "port_des": "Optional data table to filter"
+            }
+        ],
+        "output_ports": [
+            {
+                "port_type": "Table",
+                "port_name": "Result Table",
+                "port_des": "Table containing matching rows"
+            }
+        ]
+    },
+    {
+        "node_id": 964,
+        "node_name": "Normalizer",
+        "node_label": "Node / Manipulator",
+        "node_des": " This node normalizes the values of all (numeric) columns. In the dialog, you can choose the columns you want to work on. The following normalization methods are available in the dialog: \n",
+        "input_ports": [
+            {
+                "port_type": "Table",
+                "port_name": "Table to normalize",
+                "port_des": "Table requiring normalization of some or all columns."
+            }
+        ],
+        "output_ports": [
+            {
+                "port_type": "Table",
+                "port_name": "Normalized table",
+                "port_des": "Table with normalized columns."
+            },
+            {
+                "port_type": "Normalizer",
+                "port_name": "Normalize Model",
+                "port_des": "Model containing normalization parameters, which can be used in a \"normalize apply\" node to normalize test data the same way as the training data has been normalized."
+            }
+        ]
+    },
+    {
+        "node_id": 352,
+        "node_name": "DBSCAN",
+        "node_label": "Node / Learner",
+        "node_des": " DBSCAN is a density-based clustering algorithm first described in Martin Ester, Hans-Peter Kriegel, J\u00f6rg Sander, Xiaowei Xu (1996). \"A density-based algorithm for discovering clusters in large spatial databases with noise\". In Evangelos Simoudis, Jiawei Han, Usama M. Fayyad. Proceedings of the Second International Conference on Knowledge Discovery and Data Mining (KDD-96). AAAI Press. pp. 226\u2013231 defines three types of points in a dataset. Core Points are points that have at least a minimum number of neighbors ( MinPts ) within a specified distance ( eps ). Border Points are points that are within eps of a core point , but have less than MinPts neighbors. Noise Points are neither core points nor border points. \n Clusters are built by joining core points to one another. If a core point is within eps of another core point, they are termed directly density-reachable .) All points that are within eps of a core point are termed density-reachable and are considered to be part of a cluster. All others are considered to be noise. \n",
+        "input_ports": [
+            {
+                "port_type": "Table",
+                "port_name": "Data Port",
+                "port_des": "The input data."
+            },
+            {
+                "port_type": "Distance Measure",
+                "port_name": "Distance Model Port",
+                "port_des": "The configured distance model from one of the Distances nodes."
+            }
+        ],
+        "output_ports": [
+            {
+                "port_type": "Table",
+                "port_name": "Data With Cluster IDs",
+                "port_des": "The input data with a column detailing each tuple's Cluster ID."
+            },
+            {
+                "port_type": "Table",
+                "port_name": "Summary Table",
+                "port_des": "Summary table with counts for each cluster."
+            }
+        ]
+    },
+    {
+        "node_id": 971,
+        "node_name": "Numeric Distances",
+        "node_label": "Node / Manipulator",
+        "node_des": " Distance definition on numerical column(s), like for instance Euclidean or Manhattan distance. Parameters for missing value handling and normalization can be set depending on the selected distance function. \n",
+        "input_ports": [
+            {
+                "port_type": "Table",
+                "port_name": "Input Table",
+                "port_des": "Input data."
+            }
+        ],
+        "output_ports": [
+            {
+                "port_type": "Distance Measure",
+                "port_name": "Distance Measure",
+                "port_des": "The configured distance."
+            }
+        ]
+    },
+    {
+        "node_id": 1165,
+        "node_name": "RDKit Optimize Geometry",
+        "node_label": "Node / Manipulator",
+        "node_des": " Optimizes the geometry for an input RDKit Mol column and calculates the molecule's energy in kcal/mol. If the passed in molecules have no conformation, it will be calculated. The optimization is based on a particular force field and a number of iterations. It is also possible to turn off optimization completely by iterating 0 times. Optionally already available coordinates can be removed in order to calculate new ones from scratch. The following force fields are supported: \nUFF: Universal force field is an all atom potential containing parameters for every atom. The force field parameters are estimated using general rules based only on the element, its hybridization, and its connectivity. Published in: UFF, a Full Periodic Table Force Field for Molecular Mechanics and Molecular Dynamics Simulations by A.K. Rappe, C.J. Casewit, K.S. Colwell, W.A. Goddard III, W.M. Skiff, J.Am. Chem. Soc. 114 (1992) 10024\u201310035 \nMMFF94: Merck molecular force field. Published in: Basis, form, scope, parameterization, and performance of MMFF94, Thomas A. Halgren, J. Comp. Chem.; 1996; 490-519 \nMMFF94S: Static variant of MMFF94. MMFF94S incorporates altered out of plane bending parameters that yield planar (or nearly planar) energy-minimized geometries at unstrained delocalized trigonal nitrogen centers. Published in: MMFF VI. MMFF94s option for energy minimization studies, Thomas A. Halgren; 1999; J. Comput. Chem., 20: 720\u2013729 \n\n",
+        "input_ports": [
+            {
+                "port_type": "Table",
+                "port_name": "Input table with RDKit Molecules",
+                "port_des": "The molecules to optimize the geometry for"
+            }
+        ],
+        "output_ports": [
+            {
+                "port_type": "Table",
+                "port_name": "Result table",
+                "port_des": "Optimized molecules with converge and energy information (kcal/mol)"
+            }
+        ]
+    },
+    {
+        "node_id": 1155,
+        "node_name": "RDKit From Molecule",
+        "node_label": "Node / Manipulator",
+        "node_des": "Generates RDKit molecule column from a molecule string representation (SMILES, SDF or SMARTS) and appends it to the table. Depending on the input format of the molecule the usage of some options is not possible. All grayed out options are not taken into account when the RDKit molecule gets generated, regardless if flagged or not. \n",
+        "input_ports": [
+            {
+                "port_type": "Table",
+                "port_name": "Data",
+                "port_des": "Data with Smiles or SDF representation of molecules"
+            }
+        ],
+        "output_ports": [
+            {
+                "port_type": "Table",
+                "port_name": "Output data",
+                "port_des": "Data with RDKit molecule column"
+            },
+            {
+                "port_type": "Table",
+                "port_name": "Erroneous input data",
+                "port_des": "Rows that could not be converted to a RDKit molecule"
+            }
+        ]
+    },
+    {
+        "node_id": 1147,
+        "node_name": "RDKit Add Hs",
+        "node_label": "Node / Manipulator",
+        "node_des": "Adds hydrogens to an RDKit molecule. \n",
+        "input_ports": [
+            {
+                "port_type": "Table",
+                "port_name": "Input table with RDKit Molecules",
+                "port_des": "Input table with RDKit Molecules"
+            }
+        ],
+        "output_ports": [
+            {
+                "port_type": "Table",
+                "port_name": "Output table with RDKit Molecules with added Hs",
+                "port_des": "Output table with RDKit Molecules with added Hs"
+            }
+        ]
+    },
+    {
+        "node_id": 1254,
+        "node_name": "SDF Reader",
+        "node_label": "Node / Source",
+        "node_des": " This node reads an SDF file and creates several columns with each molecule in a new row. You can select which parts of the molecule should be extracted into columns in the output table. By default only the molecular structure is exported, but in the second tab you can select if and which properties from the SD-file should be extracted into columns of the output table. \n",
+        "input_ports": [],
+        "output_ports": [
+            {
+                "port_type": "Table",
+                "port_name": "Read molecules",
+                "port_des": "Table with the read molecules"
+            },
+            {
+                "port_type": "Table",
+                "port_name": "Broken molecules",
+                "port_des": "Table with illegal SDF records"
+            }
+        ]
+    },
+    {
+        "node_id": 7,
+        "node_name": "3D Viewer",
+        "node_label": "Node / Visualizer",
+        "node_des": " View to display 3D depictions of molecular structures. The input table needs to contain a column containing either CDK or SDF values. The structures also need to have 3D coordinates attached. (Due to problems with the 3D generation in the CDK libraries the coordinates must be available in the input file, for instance must be contained in the SDF file.) \n This node uses the  JMol library as rendering engine. \n",
+        "input_ports": [
+            {
+                "port_type": "Table",
+                "port_name": "Molecular input",
+                "port_des": "Table to display"
+            }
+        ],
+        "output_ports": []
+    },
+    {
+        "node_id": 1255,
+        "node_name": "SDF Writer",
+        "node_label": "Node / Sink",
+        "node_des": " This node writes SDF or Mol cells into a continuous SDF file. You may also add additional properties from columns to the SDF molecules while they are written out. \n",
+        "input_ports": [
+            {
+                "port_type": "Table",
+                "port_name": "Molecules",
+                "port_des": "A table with at least an SDF or Mol column"
+            }
+        ],
+        "output_ports": []
+    },
+    {
+        "node_id": 1158,
+        "node_name": "RDKit Interactive Table",
+        "node_label": "Node / Visualizer",
+        "node_des": " Displays data in a table view with the capability to show additional header information in the column header, e.g. Smiles structures, produced by RDKit nodes. If the number of rows is unknown, the view counts the number of rows when opened. Furthermore, rows can be selected and hilited. \n",
+        "input_ports": [
+            {
+                "port_type": "Table",
+                "port_name": "Arbitrary input table",
+                "port_des": "Arbitrary input table."
+            }
+        ],
+        "output_ports": [
+            {
+                "port_type": "Table",
+                "port_name": "Same table as input table",
+                "port_des": "Same table as input table."
+            }
+        ]
+    }
+]
