@@ -39,7 +39,7 @@ def get_corpus(cur, block_label, nodes_id_list):
     corpus_id = []
     corpus_name = []
 
-    with open("data/nodes_data.json", "r", encoding='utf-8') as user_file:
+    with open("data/nodes_sample.json", "r", encoding='utf-8') as user_file:
         data = json.load(user_file)
     for each in data:
         node_id = each["node_id"]
@@ -90,7 +90,7 @@ if __name__=='__main__':
     results_list = []
     json_file = open(args.save_path, 'w')
 
-    with open("data/workflow_data.json", "r", encoding='utf-8') as user_file:
+    with open("data/workflow_sample.json", "r", encoding='utf-8') as user_file:
         data = json.load(user_file)
     for example in data:
         print(example)
