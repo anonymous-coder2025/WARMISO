@@ -1,0 +1,226 @@
+task_writer: &task_writer |-
+  Example 1:
+  [task]
+  Access data on a SQLite database and read it into a local KNIME data table.
+  [The Start of sub-tasks] 
+  1. Create a connection to the SQLite database
+  2. Select the table from the connected database
+  3. Read the selected table into a local KNIME data table
+  [The End of sub-tasks]
+
+  Example 2:
+  [task]
+  Load mass spectra (mzML, featureXML) as tables, filter them and visualize them in different ways.
+  [The Start of sub-tasks]
+  1. Load mass spectra from mzML file
+  2. Load mass spectra from featureXML file
+  3. Filter baseline from loaded mzML spectra
+  4. Visualize filtered spectra.
+  [The End of sub-tasks]
+
+  Example 3:
+  [task]
+  Create input data table, get Data&Time from String text, shift dates based on logic applied in Rule Engine.
+  [The Start of sub-tasks]
+  1. Create the input data table manually
+  2. Parse strings in selected columns and convert them into Date&Time cells
+  3. Apply rule engine based on defined rules
+  4. Shift dates based on logic applied in Rule Engine.
+  [The End of sub-tasks]
+
+  [task]
+  ${task}
+
+  Break the given task into distinct, actionable sub-tasks. Each sub-task should represent a critical step required to complete the overall task. Make sure the sub-tasks follow a logical sequence to achieve the final goal.
+  Output the sub-tasks in the following format strictly:
+  [The Start of sub-tasks]
+  List your decomposed sub-tasks here
+  [The End of sub-tasks]
+
+task_classify_all: &task_classify_all |-
+  [task]
+  ${task}
+
+  [Instruction]
+  1. Carefully analyze the task to understand its requirements.  
+  2. Determine if the task is related to **Big Data**, which typically involves:  
+   - Usage of databases like SQLite, MongoDB, Paradox SQL, or other SQL database.  
+   - Usage of tools or frameworks like Spark, Kafka, Hadoop, Google Analytics system, or other similar tools.  
+  Your answer should be "Yes" or "No".
+
+  Output only ONE LINE in following format strictly:
+  Answer: [your answer]
+
+Query2keyword: &Query2keyword |-
+  Write a list of keywords for the given query:
+
+  Query: Access data on a SQLite database and read it into a local KNIME data table.
+  Keywords: Access data, SQLite database, read, data table.
+
+  Query: Load mass spectra (mzML, featureXML) as tables, filter them and visualize them in different ways.
+  Keywords: mass spectra, load tables, mzML, featureXML, filter, visualize.
+
+  Query: Create input data table, get Data&Time from String text, shift dates based on logic applied in Rule Engine.
+  Keywords: Create input data table, get Data&Time, string text, shift dates, Rule Engine.
+
+  Query: ${task}
+  Keywords:
+
+Query2CoT: &Query2CoT |-
+  Answer the following query:
+
+  Query: ${task}
+
+  Give the rationale before answering
+
+
+Query2API: &Query2API |-
+  Write a list of APIs to achieve the query:
+
+  Query: Access data on a SQLite database and read it into a local KNIME data table.
+  APIs:
+    1. SQLite_Connector: Create a connection to the SQLite database
+    2. DB_Table_Selector: Select the table from the connected database
+    3. DB_Reader: Read the selected table into a local KNIME data table
+  
+  Query: Load mass spectra (mzML, featureXML) as tables, filter them and visualize them in different ways.
+  APIs:
+    1. Input_Files: Load mass spectra from mzML file
+    2. Input_Files: Load mass spectra from featureXML file
+    3. BaselineFilter: Filter baseline from loaded mzML spectra
+    4. MS_Viewer: Visualize filtered spectra.
+
+  Query: Create input data table, get Data&Time from String text, shift dates based on logic applied in Rule Engine.
+  APIs:
+    1. Table_Creator: Create the input data table manually
+    2. String_to_Date_Time: Parse strings in selected columns and convert them into Date&Time cells
+    3. Rule_Engine: Apply rule engine based on defined rules
+    4. Date_Time_Shift: Shift dates based on logic applied in Rule Engine.
+
+  Query: ${task}
+  APIs:
+
+task_refine: &task_refine |-
+  [Task]
+  ${task}
+
+  [Sub-Task Steps]
+  ${previous_steps}
+
+  [Current Step]
+  ${current_step}
+
+  [Related APIs to Current Step]
+  ${related_apis}
+
+  
+  Refine the Current Step according to Related APIs.
+  Output one line with the format of Current Step.
+
+task_step_writer: &task_step_writer |-
+  Example 1:
+  [Task]
+  Access data on a SQLite database and read it into a local KNIME data table. 
+  [Sub-Tasks] 
+  Step 1. SQLite_Connector: Create a connection to the SQLite database 
+  Step 2. DB_Table_Selector: Select the table from the connected database 
+  Step 3. DB_Reader: Read the selected table into a local KNIME data table
+  Step 4. None_API: Step Finished
+  
+  Example 2:
+  [Task]
+  Load mass spectra (mzML, featureXML) as tables, filter them and visualize them in different ways. 
+  [Sub-Tasks] 
+  Step 1. Input_Files: Load mass spectra from mzML file 
+  Step 2. Input_Files: Load mass spectra from featureXML file 
+  Step 3. BaselineFilter: Filter baseline from loaded mzML spectra 
+  Step 4. MS_Viewer: Visualize filtered spectra
+  Step 5. None_API: Step Finished
+
+  Example 3:
+  [Task]
+  Create input data table, get Data&Time from String text, shift dates based on the logic applied in Rule Engine. 
+  [Sub-Tasks] 
+  Step 1. Table_Creator: Create the input data table manually 
+  Step 2. String_to_Date_Time: Parse strings in selected columns and convert them into Date&Time cells 
+  Step 3. Rule_Engine: Apply rule engine based on defined rules 
+  Step 4. Date_Time_Shift: Shift dates based on logic applied in Rule Engine
+  Step 5. None_API: Step Finished
+
+  [Task]
+  ${task}
+
+  [Sub-Tasks Already Generated]
+  ${previous_steps}
+
+  [Instruction]
+  You are breaking the Task into sub-Tasks as much as possible.
+  Carefully analyze the provided Sub-Tasks Already Generated and identify the next necessary step to complete the Task. 
+  Each task should be divided into small, actionable steps. Break down the task into at least three distinct, detailed sub-steps for comprehensive progression.
+  Consider the flow of the task and ensure that each sub-task clearly contributes to the overall task completion.
+    1. If there are no Sub-Tasks Already Generated:
+      Generate the first step that initiates the process to achieve the Task.
+    2. If the Sub-Tasks Already Generated are less than three steps or not fully exhaustive:
+     Generate the next necessary step to continue the Task.
+    2. If the Sub-Tasks Already Generated are more than three steps and sufficient to complete the Task:
+      Confirm by checking against the Task description and output "None_API: Step Finished".
+  
+  Output ONLY ONE Line with the following format strictly:
+  <API_Name>: <Description of the Next Step>
+  
+
+task_step_refine: &task_step_refine |-
+  [task]
+  ${task}
+
+  [Previous Steps]
+  ${previous_steps}
+
+  [Current Step]
+  ${current_step}
+
+  [Related APIs to Current Step]
+  ${related_apis}
+
+  Goal:
+    Analyze the Related APIs to Current Step, select the most relevant API, and refine the API_Name and Description of the Current Step accordingly.
+  notes:
+    - Carefully evaluate the Related APIs to ensure the most relevant API is selected.
+    - Ensure the refined description accurately reflects the Current Step's functionality and task requirements.
+    - The output should be concise and to the point, without extra content.
+    
+  Output one line with the following format of Current Step strictly.
+  <API_Name>: <Description of the Current Step>
+
+
+APIs_Rerank: &APIs_Rerank |-
+  [Task]
+  ${task}
+
+  [Candidate APIs]
+  ${candidate_apis}
+
+  [Instruction]
+  Rerank the candidate APIs list ${candidate_APIs_list} based on their relevance to the Task.
+
+  Output the reranked list with the following format strictly.
+  Reranked List: [candidate APIs list deorder by their relevance to the Task]
+
+APIs_Filter: &APIs_Filter |-
+  You are tasked with selecting APIs from Candidate APIs that are directly relevant to completing a given Task while excluding APIs that are unnecessary or unrelated.
+  
+  [Task]
+  ${task}
+
+  [Candidate APIs]
+  ${candidate_apis}
+
+  [Instruction]
+  Selecting APIs from ${candidate_APIs_list} based on the following:
+    1. Carefully understand and analyze the Task.
+    2. Review the list of Candidate APIs and identify those that are essential or beneficial for accomplishing the Task.
+    3. Exclude APIs that are irrelevant or redundant. Provide a clear reasoning for your selection or exclusion of each API.
+
+  Output the selected list with the following format strictly.
+  Selected List: [essential or beneficial APIs for accomplishing the Task]
+  Reason: [reasoning for your selection]
